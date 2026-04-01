@@ -21,9 +21,6 @@ public class SceneController : MonoBehaviour
     [SerializeField] private CanvasGroup fadeCanvasGroup;
     [SerializeField] private float fadeDuration = 0.4f;
 
-    [Header("UI")]
-    public UnitSo gameMonsterPanel;
-
     public bool IsTransitioning { get; private set; }
 
     private void Awake()

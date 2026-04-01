@@ -13,26 +13,14 @@ public class ExploreState : EnemyState
 
     public void Enter()
     {
-        if (owner.anim != null && owner.anim.runtimeAnimatorController != null)
-        {
-            owner.anim.SetBool("RunBool", true);
-        }
-
-        owner.lastDetectedTarget = null;
+        owner.anim.SetBool("RunBool", true);
     }
 
     public void Execute()
     {
-        if (owner.IsTargetActive() && (!owner.isFleeing || (owner.scanner.attackTarget != null &&
-            (Time.time - owner.stat.LastAttackTime >= owner.stat.CurrentAttackSpeed))))
+        if (owner.scanner.nearestTarget != null)
         {
             owner.ChangeState(owner.chase);
-            return;
-        }
-
-        if (!owner.HasPath && owner.isFleeing)
-        {
-            owner.isFleeing = false;
             return;
         }
 
@@ -46,7 +34,6 @@ public class ExploreState : EnemyState
             owner.rigid.linearVelocity = Vector2.zero;
             return;
         }
-
         owner.MoveToDestination();
     }
 

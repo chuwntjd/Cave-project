@@ -1,3 +1,6 @@
+using System.Collections;
+using System.Collections.Generic;
+using System.Threading;
 using UnityEngine;
 
 public class Weapon : MonoBehaviour
@@ -10,18 +13,18 @@ public class Weapon : MonoBehaviour
     public float speed;
     public float timer;
     Unit unit;
-    UnitCombat unitCombat;
+    PlayerMovement player;
     Scanner scanner;
 
     public void Init(ItemData data)
     {
-        unit = GameManager.instance.spawnUnit.GetComponent<Unit>();
-        unitCombat = unit.GetComponent<UnitCombat>();
-        scanner = unit.GetComponent<Scanner>();
+        scanner = GameManager.instance.spawnUnit.GetComponent<Scanner>();
+        player = GameManager.instance.spawnUnit.GetComponent<PlayerMovement>();
+        unit = player.gameObject.GetComponent<Unit>();
         name = "Weapon " + data.itemId;
-        transform.SetParent(unit.transform);
+        transform.parent = player.transform;
         transform.localPosition = new Vector3(0.5f,0,0);
-        unit.SetWeapon(this);
+        player.SetWeapon(this);
 
         id = data.itemId;
         damage = data.baseDamage;
@@ -58,7 +61,7 @@ public class Weapon : MonoBehaviour
         switch (id)
         {
             case 0:
-                bullet.GetComponent<Bullet>().Init(id, damage, count, dir, 5 * unitCombat.bulletSpeed, "Enemy", transform);
+                bullet.GetComponent<Bullet>().Init(id, damage, count, dir, 5 * unit.bulletSpeed, "Enemy");
                 break;
         }
     }

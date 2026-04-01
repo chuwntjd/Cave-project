@@ -20,8 +20,6 @@ public class InvenPopup : MonoBehaviour
 
     public void MakeRequest()
     {
-        SceneController.instance.gameMonsterPanel = currentNode.unitData;
         MonsterPopupManager.instance.ClosePopup();
-        SceneController.instance.LoadGameScene();     
     }
 }
