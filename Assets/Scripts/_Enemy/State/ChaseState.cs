@@ -1,3 +1,6 @@
+using System.Collections.Generic;
+using System.Linq;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class ChaseState : EnemyState
@@ -13,17 +16,7 @@ public class ChaseState : EnemyState
 
     public void Enter()
     {
-        if (owner.anim != null && owner.anim.runtimeAnimatorController != null)
-        {
-            owner.anim.SetBool("RunBool", true);
-        }
-
-        if (owner.scanner.nearestTarget != null && owner.scanner.nearestTarget != owner.lastDetectedTarget)
-        {
-            owner.ShowEmoticon("Detection");
-            owner.lastDetectedTarget = owner.scanner.nearestTarget;
-        }
-
+        owner.anim.SetBool("RunBool", true);
         UpdatePathToTarget();
     }
 
@@ -44,29 +37,21 @@ public class ChaseState : EnemyState
             }
         }
 
-        if (Vector2.Distance(owner.transform.position, owner.scanner.nearestTarget.position) <= 0.1f)
-        {
-            owner.rigid.linearVelocity = Vector2.zero;
-        }
-        else if (!owner.HasPath)
+        if (!owner.HasPath)
         {
             UpdatePathToTarget();
             if (!owner.HasPath) return;
         }
 
+        Vector2Int goal = Vector2Int.RoundToInt(owner.currentPath.Last.Value);
 
-        if (owner.HasPath)
+        if (goal != Vector2Int.RoundToInt(owner.scanner.nearestTarget.transform.position))
         {
-            Vector2Int goal = Vector2Int.RoundToInt(owner.currentPath.Last.Value);
-
-            if (goal != Vector2Int.RoundToInt(owner.scanner.nearestTarget.transform.position))
-            {
-                UpdatePathToTarget();
-                if (!owner.HasPath) return;
-            }
-
-            owner.MoveToDestination();
+            UpdatePathToTarget();
+            if (!owner.HasPath) return;
         }
+
+        owner.MoveToDestination();
     }
 
     public void Exit()

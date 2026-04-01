@@ -16,7 +16,6 @@ public class Bullet : MonoBehaviour
 
     Rigidbody2D rigid;
     private string targetTag;
-    private Transform shooter;
 
     private void Awake()
     {
@@ -40,23 +39,18 @@ public class Bullet : MonoBehaviour
         }
     }
 
-    public void Init(int id, float Damage, int per, Vector3 dir, float bulletVelocity, string targetTag, Transform shooter)
+    public void Init(int id, float Damage, int per, Vector3 dir, float bulletVelocity, string targetTag)
     {
         this.Damage = Damage;
         this.per = per;
         this.id = id;
         this.targetTag = targetTag;
-        this.shooter = shooter;
-
-        float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
-        transform.rotation = Quaternion.Euler(0, 0, angle);
-
         rigid.linearVelocity = dir * bulletVelocity;        
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (!(collision.CompareTag(targetTag) || collision.CompareTag("Wall")) || per == -1)
+        if (!(collision.CompareTag("Enemy") || collision.CompareTag("Wall")) || per == -1)
             return;
         
 
@@ -74,16 +68,11 @@ public class Bullet : MonoBehaviour
 
             if (stat != null)
             {
-                stat.TakeDamage((int)Damage, shooter);
+                stat.TakeDamage((int)Damage);
             }
 
-            per--;
-
-            if (per < 0)
-            {
-                rigid.linearVelocity = Vector2.zero;
-                gameObject.SetActive(false);
-            }
+            rigid.linearVelocity = Vector2.zero;
+            gameObject.SetActive(false);
         }
     }
 }

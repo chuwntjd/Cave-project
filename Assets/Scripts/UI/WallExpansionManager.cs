@@ -94,7 +94,5 @@ public class WallExpansionManager : MonoBehaviour
     {
         yield return new WaitForSeconds(expansionDelay);
         wallTilemap.SetTile(wallCell, null);
-
-        MapManager.instance.RecordWallRemoval(wallCell);
     }
 }

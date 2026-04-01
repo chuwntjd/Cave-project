@@ -13,10 +13,7 @@ public class InteractState : EnemyState
 
     public void Enter()
     {
-        if (owner.anim != null && owner.anim.runtimeAnimatorController != null)
-        {
-            owner.anim.SetBool("RunBool", false);
-        }
+        owner.anim.SetBool("RunBool", false);
     }
 
     public void Execute()

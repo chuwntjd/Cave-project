@@ -79,7 +79,7 @@ public class Selector : MonoBehaviour
 
         if (selectedUnits.Count == 1)
         {
-            Unit movement = selectedUnits[0].GetComponent<Unit>();
+            PlayerMovement movement = selectedUnits[0].GetComponent<PlayerMovement>();
             if (movement != null)
             {
                 movement.MoveToPosition(centerPosition);
@@ -104,7 +104,7 @@ public class Selector : MonoBehaviour
                 continue;
             }
 
-            Unit movement = unit.GetComponent<Unit>();
+            PlayerMovement movement = unit.GetComponent<PlayerMovement>();
             if (movement != null)
             {
                 float offsetX = (currentCol - unitsPerRow / 2f) * formationSpacing;
@@ -239,7 +239,7 @@ public class Selector : MonoBehaviour
             selectedUnits.Add(unit);
 
             SpriteRenderer renderer = unit.GetComponent<SpriteRenderer>();
-            Unit movement = unit.GetComponent<Unit>();
+            PlayerMovement movement = unit.GetComponent<PlayerMovement>();
 
             if (movement != null)
             {
@@ -260,7 +260,7 @@ public class Selector : MonoBehaviour
             if (unit != null)
             {
                 SpriteRenderer renderer = unit.GetComponent<SpriteRenderer>();
-                Unit movement = unit.GetComponent<Unit>();
+                PlayerMovement movement = unit.GetComponent<PlayerMovement>();
 
                 if (movement != null)
                     movement.moveable = false;

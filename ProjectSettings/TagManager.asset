@@ -11,7 +11,6 @@ TagManager:
   - SkillList
   - Slot
   - Skill
-  - Facility
   layers:
   - Default
   - TransparentFX
@@ -21,7 +20,7 @@ TagManager:
   - UI
   - Unit
   - Enemy
-  - Facility
+  - 
   - 
   - 
   - 

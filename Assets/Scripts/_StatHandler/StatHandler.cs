@@ -60,19 +60,17 @@ public abstract class StatHandler : MonoBehaviour
 
     public event Action<int, int> OnHealthChanged;
     public event Action OnDeath;
-    public event Action<Transform> OnHit;
 
     #endregion  
 
     #region 5. 함수
 
     // 전투
-    public void TakeDamage(int damage, Transform attacker)
+    public void TakeDamage(int damage)
     {
         if (isDead) return;
 
         CurrentHP -= damage;
-        OnHit?.Invoke(attacker);
 
         if (currentHP <= 0)
         {
